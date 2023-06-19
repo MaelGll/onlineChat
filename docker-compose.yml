@@ -6,21 +6,8 @@ services:
       - 8000:8000
     depends_on:
       - redis
-    networks:
-      mynetwork:
-        ipv4_address: 172.28.0.2
-
   redis:
     image: redis:5
     ports:
       - 6379:6379
-    container_name: lucis_solomon
-    networks:
-      mynetwork:
-        ipv4_address: 172.28.0.3
-
-networks:
-  mynetwork:
-    ipam:
-      config:
-        - subnet: 172.28.0.0/16
+    container_name: redis
