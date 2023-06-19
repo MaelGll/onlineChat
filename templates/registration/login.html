@@ -1,0 +1,26 @@
+<!-- templates/registration/login.html -->
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'registration/login.css' %}">
+<div class="div-1">
+  <form method="post">
+    <infoText>Log In</infoText>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="buttons-section-div">
+      <div class="button-div">
+        <button class="button" role="button" ><span class="text" type="submit">Log In</span></button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.getElementById("id_username").placeholder = "Username"; 
+  document.getElementById("id_password").placeholder = "Password"; 
+  </script>
+{% endblock %}

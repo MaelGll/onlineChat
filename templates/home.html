@@ -1,0 +1,30 @@
+<!-- templates/home.html-->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'home.css' %}">
+    <div class="div-1">
+      {% if user.is_authenticated %}
+        <infoText>Click on the button to enter a lobby</infoText>
+        <div class="buttons-section-div">
+          <div class="button-div">
+            <button class="button" role="button" ><span class="text" onclick="location.href='/chat/'">Button</span></button>
+          </div>
+        </div>
+      {% else %}
+      <infoText>Hello !</infoText><br><br>
+      <infoText>You are not logged in</infoText>
+      <div class="buttons-section-div">
+        <div class="button-div">
+          <button class="button" role="button" ><span class="text" onclick="location.href='/accounts/login/'">Log In</span></button>
+        </div>
+        <div class="button-div">
+          <button class="button" role="button" ><span class="text" onclick="location.href='/accounts/signup'">Sign up</span></button>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+{% endblock %}

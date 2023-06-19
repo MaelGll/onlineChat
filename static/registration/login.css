@@ -1,0 +1,17 @@
+form{
+    margin-top: -10px;
+    display: flexbox;
+}
+
+label{
+    display: none;
+}
+
+p{
+    margin-top: 30px;
+    display: flexbox;
+}
+
+.buttons-section-div {
+    margin-top: 20px;
+}

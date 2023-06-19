@@ -1,0 +1,26 @@
+<!-- templates/base.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="{% static 'base.css' %}">
+<head>
+  <meta charset="utf-8">
+  <ul class="header">
+    <li class="linked siteName"><a href="/chat/">Online Chat</a></li>
+      {%if user.is_authenticated%}
+        <li class="linked userMenu"><a href="{% url 'logout' %}">Log Out</a></li>
+        <li class="vl userMenu"></li>
+        <li class="userName userMenu"><a>{{ user.username }}</a></li>
+      {% endif %}
+  </ul>
+  <br>
+  <br
+  </head>
+  <body>
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
+  </body>
+</html>

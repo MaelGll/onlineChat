@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}Chat Room{% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'chat/room.css' %}">
+<textarea id="chat-log" readonly disabled></textarea><br>
+<div class="input-box focused">
+  <div class="input-wrapper">
+    <input class="room-message-input" id="chat-message-input" type="text">
+  </div>
+  <input class="room-emoji-button" id="chat-message-emoji" type="button" value="( ͡° ͜ʖ ͡°)">
+  <input class="room-send-button" id="chat-message-submit" type="button" value=">">
+</div>
+    {{ room_name|json_script:"room-name" }}
+    <div id="emoji-wheel">
+        <br>
+        <span class="emoji">😁</span>
+        <span class="emoji">😂</span>
+        <span class="emoji">😊</span>
+        <span class="emoji">😉</span><br><br>
+        <span class="emoji">🙂</span>
+        <span class="emoji">🙁</span>
+        <span class="emoji">😳</span>
+        <span class="emoji">🥺</span><br><br>
+        <span class="emoji">😯</span>
+        <span class="emoji">🥰</span>
+        <span class="emoji">😘</span>
+        <span class="emoji">🥲</span><br><br>
+        <span class="emoji">🥳</span>
+        <span class="emoji">🤭</span>
+        <span class="emoji">🤔</span>
+        <span class="emoji">😏</span><br><br>
+        <span class="emoji">😔</span>
+        <span class="emoji">😎</span>
+        <span class="emoji">🤡</span>
+        <span class="emoji">💘</span><br><br>
+        
+      </div>
+<script>
+        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+
+        const isEmojiWheelOpen = 0;
+
+        let activeElement = document.activeElement
+        const inputDiv = document.getElementsByClassName("input-box");
+
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/chat/'
+            + roomName
+            + '/'
+        );
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            document.querySelector('#chat-log').value += (data.message + '\n');
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+
+        document.querySelector('#chat-message-emoji').onclick = function(e) {
+            const emojiWheel = document.querySelector('#emoji-wheel');
+            
+            if (emojiWheel.classList.contains('open')) {
+              emojiWheel.classList.remove('open');
+            } else {
+              emojiWheel.classList.add('open');
+            }
+          };
+          
+          document.querySelectorAll('#emoji-wheel .emoji').forEach(function(emoji) {
+            emoji.onclick = function(e) {
+              const emojiValue = emoji.textContent;
+              const messageInputDom = document.querySelector('#chat-message-input');
+              messageInputDom.value += emojiValue;
+            };
+          });
+
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            const messageInputDom = document.querySelector('#chat-message-input');
+            const message = messageInputDom.value;
+            const regex = /(.|\s)*\S(.|\s)*/; 
+            if(regex.test(message)){
+              chatSocket.send(JSON.stringify({
+                'message': message
+              }));
+            }
+            messageInputDom.value = '';
+        };
+
+
+    </script>
+{% endblock %}

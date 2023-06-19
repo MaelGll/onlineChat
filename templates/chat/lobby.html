@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Chat Rooms{% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'chat/lobby.css' %}">
+<div class="div-1">
+    <infoText>Welcome !</infoText><br>
+    <infoText>Write chat room to enter</infoText>
+    <div class="spacer"></div>
+    <input id="room-name-input" type="text" class="textInput" size=49>
+    <div class="spacer"></div>
+        <div class="buttons-section-div">
+            <div class="button-div">
+            <button class="button" role="button" id="room-name-submit" value="Enter"><span class="text">Enter</span></button>
+          </div>
+        </div>
+</div>
+    <script>
+        document.querySelector('#room-name-input').focus();
+        document.querySelector('#room-name-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {
+                document.querySelector('#room-name-submit').click();
+            }
+        };
+
+        document.querySelector('#room-name-submit').onclick = function(e) {
+            var roomName = document.querySelector('#room-name-input').value;
+            if(/^([a-z0-9]{1,})$/.test(roomName)){
+                window.location.pathname = '/chat/' + roomName + '/';
+            }
+        };
+    </script>
+{% endblock %}

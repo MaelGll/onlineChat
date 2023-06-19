@@ -1,0 +1,28 @@
+<!-- templates/registration/signup.html -->
+{% extends "base.html" %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'registration/signup.css' %}">
+
+<div class="div-1">
+  <form method="post">
+    <infoText>Sign up</infoText>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="buttons-section-div">
+      <div class="button-div">
+        <button class="button" role="button" ><span class="text" type="submit">Sign up</span></button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.getElementById("id_username").placeholder = "Username"; 
+  document.getElementById("id_password1").placeholder = "Password"; 
+  document.getElementById("id_password2").placeholder = "Confirm password"; 
+</script>
+{% endblock %}

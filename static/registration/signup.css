@@ -1,0 +1,30 @@
+ul{
+    display: none;
+}
+
+.header{
+    display: block;
+}
+
+.helptext{
+    display: none;
+}
+
+label{
+    display: none;
+}
+
+form{
+    margin-top: -25px;
+    display: flexbox;
+}
+
+
+p{
+    margin-top: 20px;
+    display: flexbox;
+}
+
+.buttons-section-div {
+    margin-top: 10px;
+}
