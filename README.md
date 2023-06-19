@@ -36,6 +36,9 @@ You have now acess to the website at localhost:8000
 You can now create an account, sign in, join a room and chat
 
 
+
+
+
 ## Docker
 
 I initially wanted to create a signe container for all the project, but unfortunately, I couldn't make that possible.
