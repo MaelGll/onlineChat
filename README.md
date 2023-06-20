@@ -17,7 +17,7 @@ sudo apt-get install python3-daphne
 - package Channels
 ```console
 pip install channels
-``
+```
 
 ### Redis
 
